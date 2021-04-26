@@ -1,0 +1,46 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven'
+    id "com.gradle.plugin-publish" version "0.14.0"
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+version = "0.0.1"
+group = "cn.coderpig.plugins"
+
+gradlePlugin {
+    plugins {
+        greeting {
+            id = 'cn.coderpig.plugins.greeting'
+            implementationClass = 'cn.coderpig.plugins.CpPluginPlugin'
+        }
+    }
+}
+
+// 插件附加信息
+pluginBundle {
+    website = 'https://github.com/coderpig/cpplugin'
+    vcsUrl = 'https://github.com/coderpig/cpplugin'
+    description = 'cpplugin gradle plugin' //插件描述
+    tags = ['cp'] //搜索关键词
+    plugins {
+        greeting {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'cpplugin gradle plugin'
+        }
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('C:\\Users\\zhuangpeijie\\Maven\\repo'))   // 本地仓库路径
+        pom.groupId = "cn.coderpig.plugins"// 唯一标识（通常为模块包名，也可以任意）
+        pom.artifactId = "cpplugin" // 项目名称（通常为类库模块名称，也可以任意）
+        pom.version = "0.0.1"      // 版本号
+    }
+}
